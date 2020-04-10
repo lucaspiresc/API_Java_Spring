@@ -1,4 +1,4 @@
-package com.inter.desafioInter.Entities;
+package com.inter.desafiointer.entities;
 
 import java.util.List;
 import java.io.Serializable;

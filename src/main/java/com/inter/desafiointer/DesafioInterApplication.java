@@ -1,4 +1,4 @@
-package com.inter.desafioInter;
+package com.inter.desafiointer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

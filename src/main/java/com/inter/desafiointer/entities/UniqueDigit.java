@@ -1,4 +1,4 @@
-package com.inter.desafioInter.Entities;
+package com.inter.desafiointer.entities;
 
 import java.io.Serializable;
 import javax.persistence.GeneratedValue;

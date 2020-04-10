@@ -1,4 +1,4 @@
-package com.inter.desafioInter;
+package com.inter.desafiointer;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

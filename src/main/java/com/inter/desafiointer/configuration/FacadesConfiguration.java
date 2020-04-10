@@ -1,13 +1,13 @@
-package com.inter.desafioInter.Configuration;
+package com.inter.desafiointer.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Bean;
-import com.inter.desafioInter.Facades.UniqueDigitFacade;
-import com.inter.desafioInter.Facades.IUniqueDigitFacade;
-import com.inter.desafioInter.Facades.UserFacade;
-import com.inter.desafioInter.Facades.IUserFacade;
-import com.inter.desafioInter.Facades.SecurityFacade;
-import com.inter.desafioInter.Facades.ISecurityFacade;
+import com.inter.desafiointer.facades.UniqueDigitFacade;
+import com.inter.desafiointer.facades.IUniqueDigitFacade;
+import com.inter.desafiointer.facades.UserFacade;
+import com.inter.desafiointer.facades.IUserFacade;
+import com.inter.desafiointer.facades.SecurityFacade;
+import com.inter.desafiointer.facades.ISecurityFacade;
 
 @Configuration
 public class FacadesConfiguration {

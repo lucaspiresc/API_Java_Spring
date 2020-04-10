@@ -1,4 +1,4 @@
-package com.inter.desafioInter.dto;
+package com.inter.desafiointer.dto;
 
 import lombok.Data;
 import java.util.List;
@@ -12,5 +12,6 @@ public class UserDTO {
     private List<UniqueDigitDTO> uniqueDigits;
 
     public UserDTO(){
+        //Empty constructor required for Model Mapper
     }
 }

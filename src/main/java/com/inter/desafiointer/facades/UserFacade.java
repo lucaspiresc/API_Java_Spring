@@ -1,15 +1,15 @@
-package com.inter.desafioInter.Facades;
+package com.inter.desafiointer.facades;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.inter.desafioInter.Repositories.UserRepository;
-import com.inter.desafioInter.Repositories.UniqueDigitRepository;
-import com.inter.desafioInter.dto.UserDTO;
-import com.inter.desafioInter.Entities.User;
-import com.inter.desafioInter.Entities.UniqueDigit;
+import com.inter.desafiointer.repositories.UserRepository;
+import com.inter.desafiointer.repositories.UniqueDigitRepository;
+import com.inter.desafiointer.dto.UserDTO;
+import com.inter.desafiointer.entities.User;
+import com.inter.desafiointer.entities.UniqueDigit;
 
 public class UserFacade implements IUserFacade{
 
@@ -26,19 +26,16 @@ public class UserFacade implements IUserFacade{
     private ModelMapper modelMapper;
 
     public List<UserDTO> listAllUsers(){
-        List<UserDTO> usersDto = userRepository.findAll().stream()
+        return userRepository.findAll().stream()
                 .map(this::convertToDto)
                 .collect(java.util.stream.Collectors.toList());
-
-        return usersDto;
     }
 
     public UserDTO getUserById(Long userId){
         Optional<User> user = userRepository.findById(userId);
 
         if(user.isPresent()){
-            UserDTO userDto = convertToDto(user.get());
-            return userDto;
+            return convertToDto(user.get());
         }
         else {
             return null;
@@ -60,9 +57,7 @@ public class UserFacade implements IUserFacade{
 
             savedUser.setUniqueDigits(savedDigits);
 
-            UserDTO savedUserDto = convertToDto(savedUser);
-
-            return savedUserDto;
+            return convertToDto(savedUser);
         }
         catch (Exception ex) {
             throw ex;
@@ -76,8 +71,7 @@ public class UserFacade implements IUserFacade{
             User userToDelete = user.get();
             userRepository.delete(userToDelete);
 
-            UserDTO deletedUser = convertToDto(userToDelete);
-            return deletedUser;
+            return convertToDto(userToDelete);
         }
         else {
             return null;
@@ -97,8 +91,7 @@ public class UserFacade implements IUserFacade{
 
                 User updatedUser = userRepository.save(userToUpdate);
 
-                UserDTO updatedUserDto = convertToDto(updatedUser);
-                return updatedUserDto;
+                return convertToDto(updatedUser);
             } else {
                 return null;
             }
@@ -109,13 +102,11 @@ public class UserFacade implements IUserFacade{
     }
 
     private UserDTO convertToDto(User user){
-        UserDTO userDto = modelMapper.map(user, UserDTO.class);
-        return userDto;
+        return modelMapper.map(user, UserDTO.class);
     }
 
     private User convertToEntity(UserDTO userDto){
-        User user = modelMapper.map(userDto, User.class);
-        return user;
+        return modelMapper.map(userDto, User.class);
     }
 
 }

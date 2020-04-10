@@ -1,7 +1,7 @@
-package com.inter.desafioInter.Controllers;
+package com.inter.desafiointer.controllers;
 
-import com.inter.desafioInter.Facades.ISecurityFacade;
-import com.inter.desafioInter.dto.PublicKeyDTO;
+import com.inter.desafiointer.facades.ISecurityFacade;
+import com.inter.desafiointer.dto.PublicKeyDTO;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class SecurityController {
 
     @PostMapping("/key")
     @ApiOperation(value = "Registra a chave publica do usuario")
-    public ResponseEntity<?> setNewKey(@RequestBody PublicKeyDTO request){
+    public ResponseEntity setNewKey(@RequestBody PublicKeyDTO request){
         try{
             securityFacade.generatePublicKey(request.getPublicKey());
             return ResponseEntity.ok(request.getPublicKey());

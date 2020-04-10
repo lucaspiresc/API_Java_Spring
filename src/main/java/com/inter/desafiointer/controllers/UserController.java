@@ -1,4 +1,4 @@
-package com.inter.desafioInter.Controllers;
+package com.inter.desafiointer.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.http.ResponseEntity;
-import com.inter.desafioInter.Facades.IUserFacade;
+import com.inter.desafiointer.facades.IUserFacade;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import com.inter.desafioInter.dto.UserDTO;
+import com.inter.desafiointer.dto.UserDTO;
 import java.util.List;
 
 @RestController
@@ -26,11 +26,11 @@ public class UserController {
 
     @GetMapping("/all")
     @ApiOperation(value = "Recupera todos os usuarios")
-    public ResponseEntity<?> listUsers(){
+    public ResponseEntity listUsers(){
         try {
             List<UserDTO> usersDto = userFacade.listAllUsers();
 
-            if (usersDto != null && usersDto.size() > 0) {
+            if (usersDto != null && !usersDto.isEmpty()) {
                 return ResponseEntity.ok(usersDto);
             }
             else {
@@ -45,7 +45,7 @@ public class UserController {
 
     @GetMapping("user/{id}")
     @ApiOperation(value = "Recupera usuario com base no Id")
-    public ResponseEntity<?> getUserById(@PathVariable Long id){
+    public ResponseEntity getUserById(@PathVariable Long id){
         try {
             UserDTO userDto = userFacade.getUserById(id);
 
@@ -64,7 +64,7 @@ public class UserController {
 
     @PostMapping("/new")
     @ApiOperation(value = "Cadastra um novo usuario")
-    public ResponseEntity<?> insertNewUser(@RequestBody UserDTO userDto){
+    public ResponseEntity insertNewUser(@RequestBody UserDTO userDto){
         try {
             UserDTO savedUser = userFacade.insertNewUser(userDto);
             if(savedUser != null){
@@ -82,7 +82,7 @@ public class UserController {
 
     @DeleteMapping("/delete/{id}")
     @ApiOperation(value = "Deleta um usuario")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id){
+    public ResponseEntity deleteUser(@PathVariable Long id){
         try {
             UserDTO deletedUser = userFacade.deleteUser(id);
 
@@ -101,7 +101,7 @@ public class UserController {
 
     @PutMapping("update/{id}")
     @ApiOperation(value = "Atualiza cadastro de um usuario")
-    public ResponseEntity<?> updateUser(@RequestBody UserDTO userDto, @PathVariable Long id){
+    public ResponseEntity updateUser(@RequestBody UserDTO userDto, @PathVariable Long id){
         try {
             UserDTO updatedUser = userFacade.updateUser(userDto, id);
 

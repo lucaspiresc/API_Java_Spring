@@ -1,4 +1,4 @@
-package com.inter.desafioInter.Configuration;
+package com.inter.desafiointer.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

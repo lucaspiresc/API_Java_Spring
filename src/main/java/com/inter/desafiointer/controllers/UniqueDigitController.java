@@ -1,4 +1,4 @@
-package com.inter.desafioInter.Controllers;
+package com.inter.desafiointer.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.http.ResponseEntity;
-import com.inter.desafioInter.Facades.IUniqueDigitFacade;
+import com.inter.desafiointer.facades.IUniqueDigitFacade;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import com.inter.desafioInter.dto.CalculateDigitRequestDTO;
-import com.inter.desafioInter.dto.UniqueDigitDTO;
+import com.inter.desafiointer.dto.CalculateDigitRequestDTO;
+import com.inter.desafiointer.dto.UniqueDigitDTO;
 import java.util.List;
 
 @RestController
@@ -25,7 +25,7 @@ public class UniqueDigitController {
 
     @PostMapping("/calculate")
     @ApiOperation(value = "Calcula um digito unico com base nos parametros, e associa a um usuario caso o parametro do ID esteja preenchido")
-    public ResponseEntity<?> calculateDigit(@RequestBody CalculateDigitRequestDTO request){
+    public ResponseEntity calculateDigit(@RequestBody CalculateDigitRequestDTO request){
         try {
             Long result = uniqueDigitFacade.calculateUniqueDigit(request.getNumberValue(), request.getMultiplier(), request.getUserId());
             return ResponseEntity.ok("Unique number: " + result);
@@ -38,10 +38,10 @@ public class UniqueDigitController {
 
     @GetMapping("/user/{userId}")
     @ApiOperation(value = "Recupera todos os calculos de digito associados a um determinado usuario")
-    public ResponseEntity<?> getUniqueDigitsByUserId(@PathVariable Long userId){
+    public ResponseEntity getUniqueDigitsByUserId(@PathVariable Long userId){
         try{
             List<UniqueDigitDTO> uniqueDigitsDTO = uniqueDigitFacade.getUniqueDigitsByUserId(userId);
-            if(uniqueDigitsDTO.size() > 0){
+            if(!uniqueDigitsDTO.isEmpty()){
                 return ResponseEntity.ok(uniqueDigitsDTO);
             }
             else{

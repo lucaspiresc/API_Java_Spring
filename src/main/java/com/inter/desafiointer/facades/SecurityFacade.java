@@ -1,6 +1,6 @@
-package com.inter.desafioInter.Facades;
+package com.inter.desafiointer.facades;
 
-import com.inter.desafioInter.dto.UserDTO;
+import com.inter.desafiointer.dto.UserDTO;
 import java.security.PublicKey;
 import java.security.KeyFactory;
 import java.security.spec.X509EncodedKeySpec;

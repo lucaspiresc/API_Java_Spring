@@ -1,6 +1,6 @@
-package com.inter.desafioInter.Facades;
+package com.inter.desafiointer.facades;
 
-import com.inter.desafioInter.dto.UserDTO;
+import com.inter.desafiointer.dto.UserDTO;
 import java.util.List;
 
 public interface IUserFacade {

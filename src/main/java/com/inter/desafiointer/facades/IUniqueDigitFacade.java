@@ -1,6 +1,6 @@
-package com.inter.desafioInter.Facades;
+package com.inter.desafiointer.facades;
 
-import com.inter.desafioInter.dto.UniqueDigitDTO;
+import com.inter.desafiointer.dto.UniqueDigitDTO;
 import java.util.List;
 
 public interface IUniqueDigitFacade {

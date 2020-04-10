@@ -1,14 +1,14 @@
-package com.inter.desafioInter.Facades;
+package com.inter.desafiointer.facades;
 
 import java.util.Optional;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-import com.inter.desafioInter.Entities.UniqueDigit;
-import com.inter.desafioInter.dto.UniqueDigitDTO;
-import com.inter.desafioInter.Repositories.UniqueDigitRepository;
-import com.inter.desafioInter.Repositories.UserRepository;
-import com.inter.desafioInter.Entities.User;
+import com.inter.desafiointer.entities.UniqueDigit;
+import com.inter.desafiointer.dto.UniqueDigitDTO;
+import com.inter.desafiointer.repositories.UniqueDigitRepository;
+import com.inter.desafiointer.repositories.UserRepository;
+import com.inter.desafiointer.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.modelmapper.ModelMapper;
 
@@ -27,15 +27,14 @@ public class UniqueDigitFacade implements IUniqueDigitFacade{
         Optional<User> user = userRepository.findById(userId);
 
         if(user.isPresent()){
-            List<UniqueDigitDTO> uniqueDigitsDto = user.get()
+            return user.get()
                     .getUniqueDigits()
                     .stream()
                     .map(this::convertToDto)
                     .collect(Collectors.toList());
-            return uniqueDigitsDto;
         }
         else{
-            return new ArrayList<UniqueDigitDTO>();
+            return new ArrayList<>();
         }
     }
 
@@ -75,12 +74,6 @@ public class UniqueDigitFacade implements IUniqueDigitFacade{
     }
 
     private UniqueDigitDTO convertToDto(UniqueDigit uniqueDigit){
-        UniqueDigitDTO uniqueDigitDTO = modelMapper.map(uniqueDigit, UniqueDigitDTO.class);
-        return uniqueDigitDTO;
-    }
-
-    private UniqueDigit convertToEntity(UniqueDigitDTO uniqueDigitDTO){
-        UniqueDigit uniqueDigit = modelMapper.map(uniqueDigitDTO, UniqueDigit.class);
-        return uniqueDigit;
+        return modelMapper.map(uniqueDigit, UniqueDigitDTO.class);
     }
 }

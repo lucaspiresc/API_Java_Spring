@@ -1,4 +1,4 @@
-package com.inter.desafioInter.dto;
+package com.inter.desafiointer.dto;
 
 import lombok.Data;
 
@@ -12,6 +12,6 @@ public class UniqueDigitDTO {
     private Long userId;
 
     public UniqueDigitDTO(){
-
+        //Empty constructor required for Model Mapper
     }
 }
