@@ -1,0 +1,218 @@
+{
+  "info": {
+    "_postman_id": "6e11f6eb-dff4-4818-8103-e4d85ed20b37",
+    "name": "Inter",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "localhost:8080/api/users/all",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/api/users/all",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "users",
+            "all"
+          ]
+        },
+        "description": "Recupera todos os usuarios"
+      },
+      "response": []
+    },
+    {
+      "name": "localhost:8080/api/users/user/{id}",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/api/users/user/{id}",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "users",
+            "user",
+            "{id}"
+          ]
+        },
+        "description": "Recupera usuario com base no Id"
+      },
+      "response": []
+    },
+    {
+      "name": "localhost:8080/api/users/new",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\t\"username\": \"Davidson\",\n\t\"email\": \"davidson.castro@bancointer.com.br\",\n\t\"uniqueDigits\":[{\n\t\t\"numberValue\": \"9875\",\n\t\t\"multiplier\": \"4\",\n\t\t\"digitValue\": \"8\"\n\t}]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/api/users/new",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "users",
+            "new"
+          ]
+        },
+        "description": "Cadastra um novo usuario"
+      },
+      "response": []
+    },
+    {
+      "name": "localhost:8080/api/users/delete/{id}",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/api/users/delete/{id}",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "users",
+            "delete",
+            "{id}"
+          ]
+        },
+        "description": "Deleta um usuario"
+      },
+      "response": []
+    },
+    {
+      "name": "localhost:8080/api/users/update/{id}",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\t\"userId\": \"{id}\",\n\t\"username\": \"Lucas Cicutti\",\n\t\"email\": \"lucascicutti1995@inter.com\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/api/users/update/{id}",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "users",
+            "update",
+            "{id}"
+          ]
+        },
+        "description": "Atualiza cadastro de um usuario"
+      },
+      "response": []
+    },
+    {
+      "name": "localhost:8080/api/digits/user/{id}",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/api/digits/user/{id}",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "digits",
+            "user",
+            "{id}"
+          ]
+        },
+        "description": "Recupera todos os calculos de digito associados a um determinado usuario"
+      },
+      "response": []
+    },
+    {
+      "name": "localhost:8080/api/digits/calculate",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\t\"numberValue\": \"3\",\n\t\"multiplier\": \"1133\",\n\t\"userId\": \"1\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/api/digits/calculate",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "digits",
+            "calculate"
+          ]
+        },
+        "description": "Calcula um digito unico com base nos parametros, e associa a um usuario caso o parametro do ID esteja preenchido"
+      },
+      "response": []
+    },
+    {
+      "name": "localhost:8080/api/security/key",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\t\"publicKey\": \"MIIBITANBgkqhkiG9w0BAQEFAAOCAQ4AMIIBCQKCAQBdt6qhEo6QatKDUhSHJqa9vOq4QZ+13esh8YiCBzoVai9PwNKPtSVHJvhhvdf5u96V4XH98aMK8nImUdwD6+i3wdRp8xInyWeJMHdolkBZUZ7+ZnJxO6U7Pqiqg864WXhFfG7qMdDHg8mzHpHoWSosT6Zue9VD33UlcCSzF8MbGpuMXGIRhSOSn9RjkQuLXdn6BuwbRw4viCcRJ7tQxopWjy5loCrW2wTjzdaf+3XVbThGi6HK0tuDGGdH4LlctNjp7Lje1pdGJJvRHDUYGijFXF/Ku1zXBxfCmirrWbU/ZqKp0GEkcAaCG5ZQa3hQ4rYsK4fpI+nRtTyCfdnGH5+jAgMBAAE=\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/api/security/key",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "security",
+            "key"
+          ]
+        },
+        "description": "Registra a chave publica do usuario"
+      },
+      "response": []
+    }
+  ],
+  "protocolProfileBehavior": {}
+}
