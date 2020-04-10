@@ -1,5 +1,8 @@
 package com.inter.desafiointer.controllers;
 
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,37 +23,34 @@ import java.util.List;
 @Api(value = "Controller de Digitos Unicos")
 public class UniqueDigitController {
 
+    private Logger logger = LoggerFactory.getLogger(UniqueDigitController.class);
+
     @Autowired
     private IUniqueDigitFacade uniqueDigitFacade;
 
     @PostMapping("/calculate")
     @ApiOperation(value = "Calcula um digito unico com base nos parametros, e associa a um usuario caso o parametro do ID esteja preenchido")
-    public ResponseEntity calculateDigit(@RequestBody CalculateDigitRequestDTO request){
+    public ResponseEntity<String> calculateDigit(@RequestBody CalculateDigitRequestDTO request){
         try {
             Long result = uniqueDigitFacade.calculateUniqueDigit(request.getNumberValue(), request.getMultiplier(), request.getUserId());
             return ResponseEntity.ok("Unique number: " + result);
         }
         catch (Exception ex) {
-            //log error ?
-            return ResponseEntity.badRequest().body(ex.getMessage());
+            logger.error(ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
     @GetMapping("/user/{userId}")
     @ApiOperation(value = "Recupera todos os calculos de digito associados a um determinado usuario")
-    public ResponseEntity getUniqueDigitsByUserId(@PathVariable Long userId){
+    public ResponseEntity<List<UniqueDigitDTO>> getUniqueDigitsByUserId(@PathVariable Long userId){
         try{
             List<UniqueDigitDTO> uniqueDigitsDTO = uniqueDigitFacade.getUniqueDigitsByUserId(userId);
-            if(!uniqueDigitsDTO.isEmpty()){
-                return ResponseEntity.ok(uniqueDigitsDTO);
-            }
-            else{
-                return ResponseEntity.badRequest().body("Unable to find any unique digits");
-            }
+            return ResponseEntity.ok(uniqueDigitsDTO);
         }
         catch (Exception ex){
-            //log error ?
-            return ResponseEntity.badRequest().build();
+            logger.error(ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 

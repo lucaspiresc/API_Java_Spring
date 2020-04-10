@@ -9,7 +9,7 @@ public interface IUserFacade {
 
     UserDTO getUserById(Long userId);
 
-    UserDTO insertNewUser(UserDTO userDto) throws Exception;
+    UserDTO insertNewUser(UserDTO userDto);
 
     UserDTO deleteUser(Long userId);
 

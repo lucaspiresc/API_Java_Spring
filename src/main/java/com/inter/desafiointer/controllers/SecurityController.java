@@ -2,6 +2,9 @@ package com.inter.desafiointer.controllers;
 
 import com.inter.desafiointer.facades.ISecurityFacade;
 import com.inter.desafiointer.dto.PublicKeyDTO;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,19 +19,21 @@ import io.swagger.annotations.ApiOperation;
 @Api(value = "Controller da camada de segurança")
 public class SecurityController {
 
+    private Logger logger = LoggerFactory.getLogger(SecurityController.class);
+
     @Autowired
     private ISecurityFacade securityFacade;
 
     @PostMapping("/key")
     @ApiOperation(value = "Registra a chave publica do usuario")
-    public ResponseEntity setNewKey(@RequestBody PublicKeyDTO request){
+    public ResponseEntity<String> setNewKey(@RequestBody PublicKeyDTO request){
         try{
             securityFacade.generatePublicKey(request.getPublicKey());
             return ResponseEntity.ok(request.getPublicKey());
         }
         catch (Exception ex) {
-            //log error ?
-            return ResponseEntity.badRequest().body(ex.getMessage());
+            logger.error(ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 

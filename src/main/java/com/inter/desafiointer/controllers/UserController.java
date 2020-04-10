@@ -1,5 +1,7 @@
 package com.inter.desafiointer.controllers;
 
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import com.inter.desafiointer.facades.IUserFacade;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,31 +24,27 @@ import java.util.List;
 @Api(value = "Controller de Usuarios")
 public class UserController {
 
+    private Logger logger = LoggerFactory.getLogger(UserController.class);
+
     @Autowired
     private IUserFacade userFacade;
 
     @GetMapping("/all")
     @ApiOperation(value = "Recupera todos os usuarios")
-    public ResponseEntity listUsers(){
+    public ResponseEntity<List<UserDTO>> listUsers(){
         try {
             List<UserDTO> usersDto = userFacade.listAllUsers();
-
-            if (usersDto != null && !usersDto.isEmpty()) {
-                return ResponseEntity.ok(usersDto);
-            }
-            else {
-                return ResponseEntity.badRequest().body("Unable to find any users");
-            }
+            return ResponseEntity.ok(usersDto);
         }
         catch (Exception ex){
-            //log error ?
-            return ResponseEntity.badRequest().body(ex.getMessage());
+            logger.error(ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
     @GetMapping("user/{id}")
     @ApiOperation(value = "Recupera usuario com base no Id")
-    public ResponseEntity getUserById(@PathVariable Long id){
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id){
         try {
             UserDTO userDto = userFacade.getUserById(id);
 
@@ -53,36 +52,36 @@ public class UserController {
                 return ResponseEntity.ok(userDto);
             }
             else {
-                return ResponseEntity.badRequest().body("Unable to find user");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
             }
         }
         catch (Exception ex){
-            //log error ?
-            return ResponseEntity.badRequest().body(ex.getMessage());
+            logger.error(ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
     @PostMapping("/new")
     @ApiOperation(value = "Cadastra um novo usuario")
-    public ResponseEntity insertNewUser(@RequestBody UserDTO userDto){
+    public ResponseEntity<UserDTO> insertNewUser(@RequestBody UserDTO userDto){
         try {
             UserDTO savedUser = userFacade.insertNewUser(userDto);
             if(savedUser != null){
                 return ResponseEntity.ok(savedUser);
             }
             else{
-                return ResponseEntity.badRequest().body("Unable to save new user");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
             }
         }
         catch (Exception ex){
-            //log error ?
-            return ResponseEntity.badRequest().body(ex.getMessage());
+            logger.error(ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
     @DeleteMapping("/delete/{id}")
     @ApiOperation(value = "Deleta um usuario")
-    public ResponseEntity deleteUser(@PathVariable Long id){
+    public ResponseEntity<UserDTO> deleteUser(@PathVariable Long id){
         try {
             UserDTO deletedUser = userFacade.deleteUser(id);
 
@@ -90,18 +89,18 @@ public class UserController {
                 return ResponseEntity.ok(deletedUser);
             }
             else {
-                return ResponseEntity.badRequest().body("Unable to find user to delete");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
             }
         }
         catch (Exception ex){
-            //log error ?
-            return ResponseEntity.badRequest().body(ex.getMessage());
+            logger.error(ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
     @PutMapping("update/{id}")
     @ApiOperation(value = "Atualiza cadastro de um usuario")
-    public ResponseEntity updateUser(@RequestBody UserDTO userDto, @PathVariable Long id){
+    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDto, @PathVariable Long id){
         try {
             UserDTO updatedUser = userFacade.updateUser(userDto, id);
 
@@ -109,12 +108,12 @@ public class UserController {
                 return ResponseEntity.ok(updatedUser);
             }
             else {
-                return ResponseEntity.badRequest().body("Unable to update user");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
             }
         }
         catch (Exception ex){
-            //log error ?
-            return ResponseEntity.badRequest().body(ex.getMessage());
+            logger.error(ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 }

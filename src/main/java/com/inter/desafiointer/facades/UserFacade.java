@@ -42,7 +42,7 @@ public class UserFacade implements IUserFacade{
         }
     }
 
-    public UserDTO insertNewUser(UserDTO userDto) throws Exception{
+    public UserDTO insertNewUser(UserDTO userDto) {
         try {
             userDto = securityFacade.encryptUserData(userDto);
             User user = convertToEntity(userDto);
@@ -52,7 +52,7 @@ public class UserFacade implements IUserFacade{
 
             User savedUser = userRepository.save(user);
 
-            uniqueDigits.stream().forEach(x -> x.setUser(user));
+            uniqueDigits.forEach(x -> x.setUser(user));
             List<UniqueDigit> savedDigits = uniqueDigitRepository.saveAll(uniqueDigits);
 
             savedUser.setUniqueDigits(savedDigits);
@@ -60,7 +60,7 @@ public class UserFacade implements IUserFacade{
             return convertToDto(savedUser);
         }
         catch (Exception ex) {
-            throw ex;
+            return null;
         }
     }
 
