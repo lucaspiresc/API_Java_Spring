@@ -1,8 +1,8 @@
 package com.inter.desafiointer.memorycache;
 
+import com.inter.desafiointer.entities.UniqueDigit;
 import java.util.Queue;
 import java.util.LinkedList;
-import com.inter.desafiointer.entities.UniqueDigit;
 
 public class UniqueDigitMemoryCache {
 
@@ -13,9 +13,13 @@ public class UniqueDigitMemoryCache {
     }
 
     public void put(UniqueDigit value) {
-        if (cache.size() >= 10 && !cache.contains(value)) {
+        if (cache.size() >= 10) {
             cache.poll();
         }
         cache.add(value);
+    }
+
+    public Queue<UniqueDigit> getCache() {
+        return cache;
     }
 }

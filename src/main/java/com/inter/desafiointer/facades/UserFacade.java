@@ -5,11 +5,12 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.inter.desafiointer.repositories.UserRepository;
+import com.inter.desafiointer.entities.UniqueDigit;
 import com.inter.desafiointer.repositories.UniqueDigitRepository;
+import com.inter.desafiointer.repositories.UserRepository;
+import java.util.stream.Collectors;
 import com.inter.desafiointer.dto.UserDTO;
 import com.inter.desafiointer.entities.User;
-import com.inter.desafiointer.entities.UniqueDigit;
 
 public class UserFacade implements IUserFacade{
 
@@ -28,7 +29,7 @@ public class UserFacade implements IUserFacade{
     public List<UserDTO> listAllUsers(){
         return userRepository.findAll().stream()
                 .map(this::convertToDto)
-                .collect(java.util.stream.Collectors.toList());
+                .collect(Collectors.toList());
     }
 
     public UserDTO getUserById(Long userId){

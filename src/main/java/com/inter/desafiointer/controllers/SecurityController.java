@@ -1,7 +1,5 @@
 package com.inter.desafiointer.controllers;
 
-import com.inter.desafiointer.facades.ISecurityFacade;
-import com.inter.desafiointer.dto.PublicKeyDTO;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -22,11 +20,11 @@ public class SecurityController {
     private Logger logger = LoggerFactory.getLogger(SecurityController.class);
 
     @Autowired
-    private ISecurityFacade securityFacade;
+    private com.inter.desafiointer.facades.ISecurityFacade securityFacade;
 
     @PostMapping("/key")
     @ApiOperation(value = "Registra a chave publica do usuario")
-    public ResponseEntity<String> setNewKey(@RequestBody PublicKeyDTO request){
+    public ResponseEntity<String> setNewKey(@RequestBody com.inter.desafiointer.dto.PublicKeyDTO request){
         try{
             securityFacade.generatePublicKey(request.getPublicKey());
             return ResponseEntity.ok(request.getPublicKey());

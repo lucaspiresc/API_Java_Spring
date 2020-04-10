@@ -8,10 +8,12 @@
 		<version>2.2.6.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>com.inter</groupId>
 	<artifactId>desafioInter</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>desafioInter</name>
+
+	<name>desafiointer</name>
 	<description>Projeto desenvolvido como parte do desafio Inter</description>
 
 	<properties>
@@ -43,12 +45,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.junit.vintage</groupId>
-					<artifactId>junit-vintage-engine</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -69,11 +65,6 @@
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.7.0</version>
-		</dependency>
-        <dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.13</version>
 		</dependency>
     </dependencies>
 
