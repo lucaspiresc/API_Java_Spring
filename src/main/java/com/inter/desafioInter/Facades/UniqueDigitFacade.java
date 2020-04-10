@@ -4,10 +4,14 @@ import com.inter.desafioInter.Entities.UniqueDigit;
 
 public class UniqueDigitFacade {
 
-    public UniqueDigit calculteUniqueDigit(Long value, Long multiplier){
+    public UniqueDigit insertDigit(Long value, Long multiplier, Long UserId){
+        return null;
+    }
+
+    public Long calculateUniqueDigit(Long value, Long multiplier){
         Long sum = addNumbers(value) * multiplier;
         Long uniqueDigit = addNumbers(sum);
-        return new com.inter.desafioInter.Entities.UniqueDigit();
+        return uniqueDigit;
     }
 
     private Long addNumbers(Long value){
@@ -18,6 +22,4 @@ public class UniqueDigitFacade {
         }
         return sum;
     }
-
-
 }

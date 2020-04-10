@@ -1,5 +1,8 @@
 package com.inter.desafioInter.Entities;
 
+import java.io.Serializable;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.ManyToOne;
@@ -8,14 +11,17 @@ import javax.persistence.Id;
 
 @Entity
 @Table(name="uniqueDigit")
-public class UniqueDigit {
+public class UniqueDigit implements Serializable {
+
+    private static final long serialVersionUID = 2L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long digitId;
 
-    private Long nNumber;
+    private Long numberValue;
 
-    private Long kNumber;
+    private Long multiplier;
 
     private Long digitValue;
 
@@ -31,20 +37,20 @@ public class UniqueDigit {
         this.digitId = digitId;
     }
 
-    public Long getnNumber() {
-        return nNumber;
+    public Long getNumberValue() {
+        return numberValue;
     }
 
-    public void setnNumber(Long nNumber) {
-        this.nNumber = nNumber;
+    public void setNumberValue(Long numberValue) {
+        this.numberValue = numberValue;
     }
 
-    public Long getkNumber() {
-        return kNumber;
+    public Long getMultiplier() {
+        return multiplier;
     }
 
-    public void setkNumber(Long kNumber) {
-        this.kNumber = kNumber;
+    public void setMultiplier(Long multiplier) {
+        this.multiplier = multiplier;
     }
 
     public Long getDigitValue() {

@@ -6,9 +6,10 @@ import lombok.Data;
 public class UniqueDigitDTO {
 
     private Long digitId;
-    private Long nNumber;
-    private Long kNumber;
+    private Long numberValue;
+    private Long multiplier;
     private Long digitValue;
+    private Long userId;
 
     public UniqueDigitDTO(){
 
