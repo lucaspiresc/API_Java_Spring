@@ -20,7 +20,7 @@ public class SwaggerConfiguration {
     public Docket productApi(){
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.inter.desafioInter"))
+                .apis(RequestHandlerSelectors.basePackage("com.inter.desafiointer"))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(metaInfo());
