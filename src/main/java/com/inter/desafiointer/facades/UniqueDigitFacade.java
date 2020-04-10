@@ -8,6 +8,7 @@ import com.inter.desafiointer.entities.UniqueDigit;
 import com.inter.desafiointer.dto.UniqueDigitDTO;
 import com.inter.desafiointer.repositories.UniqueDigitRepository;
 import com.inter.desafiointer.repositories.UserRepository;
+import com.inter.desafiointer.memorycache.UniqueDigitMemoryCache;
 import com.inter.desafiointer.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.modelmapper.ModelMapper;
@@ -16,6 +17,9 @@ public class UniqueDigitFacade implements IUniqueDigitFacade{
 
     @Autowired
     private UniqueDigitRepository uniqueDigitRepository;
+
+    @Autowired
+    private UniqueDigitMemoryCache uniqueDigitMemoryCache;
 
     @Autowired
     private UserRepository userRepository;
@@ -42,9 +46,7 @@ public class UniqueDigitFacade implements IUniqueDigitFacade{
         Long sum = addNumbers(value) * multiplier;
         Long uniqueDigit = addNumbers(sum);
 
-        if(userId != null){
-            insertDigit(value,multiplier,uniqueDigit,userId);
-        }
+        insertDigit(value,multiplier,uniqueDigit,userId);
 
         return uniqueDigit;
     }
@@ -59,18 +61,23 @@ public class UniqueDigitFacade implements IUniqueDigitFacade{
     }
 
     public void insertDigit(Long value, Long multiplier, Long result, Long userId){
-        Optional<User> user = userRepository.findById(userId);
+        UniqueDigit uniqueDigit = new UniqueDigit();
 
-        if(user.isPresent()){
-            UniqueDigit uniqueDigit = new UniqueDigit();
+        uniqueDigit.setNumberValue(value);
+        uniqueDigit.setMultiplier(multiplier);
+        uniqueDigit.setDigitValue(result);
 
-            uniqueDigit.setNumberValue(value);
-            uniqueDigit.setMultiplier(multiplier);
-            uniqueDigit.setDigitValue(result);
-            uniqueDigit.setUser(user.get());
-
-            uniqueDigitRepository.save(uniqueDigit);
+        //Associate digit with user if userId is filled with a valid value
+        if(userId != null) {
+            Optional<User> user = userRepository.findById(userId);
+            if (user.isPresent()) {
+                uniqueDigit.setUser(user.get());
+                uniqueDigitRepository.save(uniqueDigit);
+            }
         }
+
+        //Save digit to memory cache
+        uniqueDigitMemoryCache.put(uniqueDigit);
     }
 
     private UniqueDigitDTO convertToDto(UniqueDigit uniqueDigit){
