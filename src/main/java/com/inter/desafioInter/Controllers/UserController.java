@@ -37,12 +37,12 @@ public class UserController {
                 return ResponseEntity.ok(usersDto);
             }
             else {
-                return ResponseEntity.badRequest().build();
+                return ResponseEntity.badRequest().body("Unable to find any users");
             }
         }
         catch (Exception ex){
             //log error ?
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(ex.getMessage());
         }
     }
 
@@ -56,12 +56,12 @@ public class UserController {
                 return ResponseEntity.ok(userDto);
             }
             else {
-                return ResponseEntity.badRequest().build();
+                return ResponseEntity.badRequest().body("Unable to find user");
             }
         }
         catch (Exception ex){
             //log error ?
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(ex.getMessage());
         }
     }
 
@@ -74,12 +74,12 @@ public class UserController {
                 return ResponseEntity.ok(savedUser);
             }
             else{
-                return ResponseEntity.badRequest().build();
+                return ResponseEntity.badRequest().body("Unable to save new user");
             }
         }
         catch (Exception ex){
             //log error ?
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(ex.getMessage());
         }
     }
 
@@ -93,12 +93,12 @@ public class UserController {
                 return ResponseEntity.ok(deletedUser);
             }
             else {
-                return ResponseEntity.badRequest().build();
+                return ResponseEntity.badRequest().body("Unable to find user to delete");
             }
         }
         catch (Exception ex){
             //log error ?
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(ex.getMessage());
         }
     }
 
@@ -112,12 +112,12 @@ public class UserController {
                 return ResponseEntity.ok(updatedUser);
             }
             else {
-                return ResponseEntity.badRequest().build();
+                return ResponseEntity.badRequest().body("Unable to update user");
             }
         }
         catch (Exception ex){
             //log error ?
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(ex.getMessage());
         }
     }
 }

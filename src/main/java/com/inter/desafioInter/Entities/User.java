@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.OneToMany;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 
 @Entity
 @Table(name="DigitUser")
@@ -20,8 +21,10 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String username;
 
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String email;
 
     @OneToMany(mappedBy = "user", cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE}, orphanRemoval = true)

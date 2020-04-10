@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Bean;
 import com.inter.desafioInter.Facades.UniqueDigitFacade;
 import com.inter.desafioInter.Facades.UserFacade;
+import com.inter.desafioInter.Facades.SecurityFacade;
 
 @Configuration
 public class FacadesConfiguration {
@@ -16,6 +17,11 @@ public class FacadesConfiguration {
     @Bean
     public UserFacade userFacade(){
         return new UserFacade();
+    }
+
+    @Bean
+    public SecurityFacade securityFacade(){
+        return new SecurityFacade();
     }
 
 }

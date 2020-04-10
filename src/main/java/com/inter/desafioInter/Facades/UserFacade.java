@@ -10,6 +10,7 @@ import com.inter.desafioInter.Repositories.UniqueDigitRepository;
 import com.inter.desafioInter.dto.UserDTO;
 import com.inter.desafioInter.Entities.User;
 import com.inter.desafioInter.Entities.UniqueDigit;
+import com.inter.desafioInter.Facades.SecurityFacade;
 
 public class UserFacade {
 
@@ -18,6 +19,9 @@ public class UserFacade {
 
     @Autowired
     private UniqueDigitRepository uniqueDigitRepository;
+
+    @Autowired
+    private SecurityFacade securityFacade;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -42,22 +46,28 @@ public class UserFacade {
         }
     }
 
-    public UserDTO insertNewUser(UserDTO userDto){
-        User user = convertToEntity(userDto);
+    public UserDTO insertNewUser(UserDTO userDto) throws Exception{
+        try {
+            userDto = securityFacade.encryptUserData(userDto);
+            User user = convertToEntity(userDto);
 
-        List<UniqueDigit> uniqueDigits = user.getUniqueDigits();
-        user.setUniqueDigits(null);
+            List<UniqueDigit> uniqueDigits = user.getUniqueDigits();
+            user.setUniqueDigits(null);
 
-        User savedUser = userRepository.save(user);
+            User savedUser = userRepository.save(user);
 
-        uniqueDigits.stream().forEach(x -> x.setUser(user));
-        List<UniqueDigit> savedDigits = uniqueDigitRepository.saveAll(uniqueDigits);
+            uniqueDigits.stream().forEach(x -> x.setUser(user));
+            List<UniqueDigit> savedDigits = uniqueDigitRepository.saveAll(uniqueDigits);
 
-        savedUser.setUniqueDigits(savedDigits);
+            savedUser.setUniqueDigits(savedDigits);
 
-        UserDTO savedUserDto = convertToDto(savedUser);
+            UserDTO savedUserDto = convertToDto(savedUser);
 
-        return savedUserDto;
+            return savedUserDto;
+        }
+        catch (Exception ex) {
+            throw ex;
+        }
     }
 
     public UserDTO deleteUser(Long userId){
@@ -76,20 +86,25 @@ public class UserFacade {
     }
 
     public UserDTO updateUser(UserDTO userDto, Long userId){
-        Optional<User> user = userRepository.findById(userId);
+        try {
+            Optional<User> user = userRepository.findById(userId);
 
-        if (user.isPresent()) {
-            User userToUpdate = user.get();
+            if (user.isPresent()) {
+                User userToUpdate = user.get();
+                userDto = securityFacade.encryptUserData(userDto);
 
-            userToUpdate.setUsername(userDto.getUsername());
-            userToUpdate.setEmail(userDto.getEmail());
+                userToUpdate.setUsername(userDto.getUsername());
+                userToUpdate.setEmail(userDto.getEmail());
 
-            User updatedUser = userRepository.save(userToUpdate);
+                User updatedUser = userRepository.save(userToUpdate);
 
-            UserDTO updatedUserDto = convertToDto(updatedUser);
-            return updatedUserDto;
+                UserDTO updatedUserDto = convertToDto(updatedUser);
+                return updatedUserDto;
+            } else {
+                return null;
+            }
         }
-        else {
+        catch (Exception ex){
             return null;
         }
     }

@@ -5,21 +5,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.http.ResponseEntity;
-import com.inter.desafioInter.Repositories.UserRepository;
-import com.inter.desafioInter.Entities.User;
 import com.inter.desafioInter.Facades.UniqueDigitFacade;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import com.inter.desafioInter.dto.CalculateDigitRequestDTO;
 import com.inter.desafioInter.dto.UniqueDigitDTO;
-import com.inter.desafioInter.Entities.UniqueDigit;
-import java.util.stream.Collectors;
-import java.util.Optional;
 import java.util.List;
 
 @RestController
@@ -37,9 +30,9 @@ public class UniqueDigitController {
             Long result = uniqueDigitFacade.calculateUniqueDigit(request.getNumberValue(), request.getMultiplier(), request.getUserId());
             return ResponseEntity.ok("Unique number: " + result);
         }
-        catch (Exception ex){
+        catch (Exception ex) {
             //log error ?
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(ex.getMessage());
         }
     }
 
@@ -52,7 +45,7 @@ public class UniqueDigitController {
                 return ResponseEntity.ok(uniqueDigitsDTO);
             }
             else{
-                return ResponseEntity.badRequest().build();
+                return ResponseEntity.badRequest().body("Unable to find any unique digits");
             }
         }
         catch (Exception ex){
