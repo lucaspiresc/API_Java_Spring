@@ -10,11 +10,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.http.ResponseEntity;
-import com.inter.desafioInter.Repositories.UserRepository;
+import com.inter.desafioInter.Facades.UserFacade;
 import com.inter.desafioInter.Entities.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.modelmapper.ModelMapper;
 import com.inter.desafioInter.dto.UserDTO;
 import java.util.stream.Collectors;
 import java.util.Optional;
@@ -26,18 +25,13 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private ModelMapper modelMapper;
+    private UserFacade userFacade;
 
     @GetMapping("/all")
     @ApiOperation(value = "Recupera todos os usuarios")
     public ResponseEntity<?> listUsers(){
         try {
-            List<UserDTO> usersDto = userRepository.findAll().stream()
-                    .map(this::convertToDto)
-                    .collect(Collectors.toList());
+            List<UserDTO> usersDto = userFacade.listAllUsers();
 
             if (usersDto != null && usersDto.size() > 0) {
                 return ResponseEntity.ok(usersDto);
@@ -56,10 +50,9 @@ public class UserController {
     @ApiOperation(value = "Recupera usuario com base no Id")
     public ResponseEntity<?> getUserById(@PathVariable Long id){
         try {
-            Optional<User> user = userRepository.findById(id);
+            UserDTO userDto = userFacade.getUserById(id);
 
-            if (user.isPresent()) {
-                UserDTO userDto = convertToDto(user.get());
+            if (userDto != null) {
                 return ResponseEntity.ok(userDto);
             }
             else {
@@ -74,11 +67,15 @@ public class UserController {
 
     @PostMapping("/new")
     @ApiOperation(value = "Cadastra um novo usuario")
-    public ResponseEntity<?> newUser(@RequestBody UserDTO userDto){
+    public ResponseEntity<?> insertNewUser(@RequestBody UserDTO userDto){
         try {
-            User user = convertToEntity(userDto);
-            user = userRepository.save(user);
-            return ResponseEntity.ok(convertToDto(user));
+            UserDTO savedUser = userFacade.insertNewUser(userDto);
+            if(savedUser != null){
+                return ResponseEntity.ok(savedUser);
+            }
+            else{
+                return ResponseEntity.badRequest().build();
+            }
         }
         catch (Exception ex){
             //log error ?
@@ -90,15 +87,12 @@ public class UserController {
     @ApiOperation(value = "Deleta um usuario")
     public ResponseEntity<?> deleteUser(@PathVariable Long id){
         try {
-            Optional<User> user = userRepository.findById(id);
+            UserDTO deletedUser = userFacade.deleteUser(id);
 
-            if (user.isPresent()) {
-                User userToDelete = user.get();
-                userRepository.delete(userToDelete);
-                return ResponseEntity.ok(convertToDto(userToDelete));
+            if (deletedUser != null) {
+                return ResponseEntity.ok(deletedUser);
             }
             else {
-                //log error ?
                 return ResponseEntity.badRequest().build();
             }
         }
@@ -108,27 +102,22 @@ public class UserController {
         }
     }
 
-    @PutMapping("update/")
+    @PutMapping("update/{id}")
     @ApiOperation(value = "Atualiza cadastro de um usuario")
-    public ResponseEntity<?> updateUser(@RequestBody UserDTO userDto){
+    public ResponseEntity<?> updateUser(@RequestBody UserDTO userDto, @PathVariable Long id){
         try {
-            User updatedUser = convertToEntity(userDto);
-            updatedUser = userRepository.save(updatedUser);
-            return ResponseEntity.ok(convertToDto(updatedUser));
+            UserDTO updatedUser = userFacade.updateUser(userDto, id);
+
+            if(updatedUser != null){
+                return ResponseEntity.ok(updatedUser);
+            }
+            else {
+                return ResponseEntity.badRequest().build();
+            }
         }
         catch (Exception ex){
             //log error ?
             return ResponseEntity.badRequest().build();
         }
-    }
-
-    private UserDTO convertToDto(User user){
-        UserDTO userDto = modelMapper.map(user, UserDTO.class);
-        return userDto;
-    }
-
-    private User convertToEntity(UserDTO userDto){
-        User user = modelMapper.map(userDto, User.class);
-        return user;
     }
 }

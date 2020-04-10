@@ -15,8 +15,7 @@ import com.inter.desafioInter.Entities.User;
 import com.inter.desafioInter.Facades.UniqueDigitFacade;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.modelmapper.ModelMapper;
-import com.inter.desafioInter.dto.UserDTO;
+import com.inter.desafioInter.dto.CalculateDigitRequestDTO;
 import com.inter.desafioInter.dto.UniqueDigitDTO;
 import com.inter.desafioInter.Entities.UniqueDigit;
 import java.util.stream.Collectors;
@@ -31,23 +30,12 @@ public class UniqueDigitController {
     @Autowired
     private UniqueDigitFacade uniqueDigitFacade;
 
-    @Autowired
-    private ModelMapper modelMapper;
-
     @PostMapping("/calculate")
-    @ApiOperation(value = "Calcula um digito unico com base nos parametros")
-    public ResponseEntity<?> calculateDigit(@RequestBody UniqueDigitDTO uniqueDigitDto){
+    @ApiOperation(value = "Calcula um digito unico com base nos parametros, e associa a um usuario caso o parametro do ID esteja preenchido")
+    public ResponseEntity<?> calculateDigit(@RequestBody CalculateDigitRequestDTO request){
         try {
-            Long digit = uniqueDigitFacade.calculateUniqueDigit(uniqueDigitDto.getNumberValue(), uniqueDigitDto.getMultiplier());
-            uniqueDigitDto.setDigitValue(digit);
-
-            if(uniqueDigitDto.getUserId() != null){
-                UniqueDigit uniqueDigit = convertToEntity(uniqueDigitDto);
-                return ResponseEntity.ok("Insere: " + digit);
-            }
-            else{
-                return ResponseEntity.ok("Não insere: " + digit);
-            }
+            Long result = uniqueDigitFacade.calculateUniqueDigit(request.getNumberValue(), request.getMultiplier(), request.getUserId());
+            return ResponseEntity.ok("Unique number: " + result);
         }
         catch (Exception ex){
             //log error ?
@@ -55,14 +43,22 @@ public class UniqueDigitController {
         }
     }
 
-    private UniqueDigitDTO convertToDto(UniqueDigit uniqueDigit){
-        UniqueDigitDTO uniqueDigitDTO = modelMapper.map(uniqueDigit, UniqueDigitDTO.class);
-        return uniqueDigitDTO;
-    }
-
-    private UniqueDigit convertToEntity(UniqueDigitDTO uniqueDigitDTO){
-        UniqueDigit uniqueDigit = modelMapper.map(uniqueDigitDTO, UniqueDigit.class);
-        return uniqueDigit;
+    @GetMapping("/user/{userId}")
+    @ApiOperation(value = "Recupera todos os calculos de digito associados a um determinado usuario")
+    public ResponseEntity<?> getUniqueDigitsByUserId(@PathVariable Long userId){
+        try{
+            List<UniqueDigitDTO> uniqueDigitsDTO = uniqueDigitFacade.getUniqueDigitsByUserId(userId);
+            if(uniqueDigitsDTO.size() > 0){
+                return ResponseEntity.ok(uniqueDigitsDTO);
+            }
+            else{
+                return ResponseEntity.badRequest().build();
+            }
+        }
+        catch (Exception ex){
+            //log error ?
+            return ResponseEntity.badRequest().build();
+        }
     }
 
 }
