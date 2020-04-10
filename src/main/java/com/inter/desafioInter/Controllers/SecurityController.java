@@ -1,6 +1,6 @@
 package com.inter.desafioInter.Controllers;
 
-import com.inter.desafioInter.Facades.SecurityFacade;
+import com.inter.desafioInter.Facades.ISecurityFacade;
 import com.inter.desafioInter.dto.PublicKeyDTO;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +17,7 @@ import io.swagger.annotations.ApiOperation;
 public class SecurityController {
 
     @Autowired
-    private SecurityFacade securityFacade;
+    private ISecurityFacade securityFacade;
 
     @PostMapping("/key")
     @ApiOperation(value = "Registra a chave publica do usuario")

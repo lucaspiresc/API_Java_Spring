@@ -10,9 +10,8 @@ import com.inter.desafioInter.Repositories.UniqueDigitRepository;
 import com.inter.desafioInter.dto.UserDTO;
 import com.inter.desafioInter.Entities.User;
 import com.inter.desafioInter.Entities.UniqueDigit;
-import com.inter.desafioInter.Facades.SecurityFacade;
 
-public class UserFacade {
+public class UserFacade implements IUserFacade{
 
     @Autowired
     private UserRepository userRepository;
@@ -21,7 +20,7 @@ public class UserFacade {
     private UniqueDigitRepository uniqueDigitRepository;
 
     @Autowired
-    private SecurityFacade securityFacade;
+    private ISecurityFacade securityFacade;
 
     @Autowired
     private ModelMapper modelMapper;

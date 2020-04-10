@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.http.ResponseEntity;
-import com.inter.desafioInter.Facades.UniqueDigitFacade;
+import com.inter.desafioInter.Facades.IUniqueDigitFacade;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import com.inter.desafioInter.dto.CalculateDigitRequestDTO;
@@ -21,7 +21,7 @@ import java.util.List;
 public class UniqueDigitController {
 
     @Autowired
-    private UniqueDigitFacade uniqueDigitFacade;
+    private IUniqueDigitFacade uniqueDigitFacade;
 
     @PostMapping("/calculate")
     @ApiOperation(value = "Calcula um digito unico com base nos parametros, e associa a um usuario caso o parametro do ID esteja preenchido")

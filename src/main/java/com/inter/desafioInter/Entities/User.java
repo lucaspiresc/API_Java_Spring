@@ -54,11 +54,11 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public java.util.List<UniqueDigit> getUniqueDigits() {
+    public List<UniqueDigit> getUniqueDigits() {
         return uniqueDigits;
     }
 
-    public void setUniqueDigits(java.util.List<UniqueDigit> uniqueDigits) {
+    public void setUniqueDigits(List<UniqueDigit> uniqueDigits) {
         this.uniqueDigits = uniqueDigits;
     }
 }

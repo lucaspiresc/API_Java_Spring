@@ -12,7 +12,7 @@ import com.inter.desafioInter.Entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.modelmapper.ModelMapper;
 
-public class UniqueDigitFacade {
+public class UniqueDigitFacade implements IUniqueDigitFacade{
 
     @Autowired
     private UniqueDigitRepository uniqueDigitRepository;
@@ -50,7 +50,7 @@ public class UniqueDigitFacade {
         return uniqueDigit;
     }
 
-    private Long addNumbers(Long value){
+    public Long addNumbers(Long value){
         Long sum = 0L;
         while(value > 0) {
             sum += (value % 10);

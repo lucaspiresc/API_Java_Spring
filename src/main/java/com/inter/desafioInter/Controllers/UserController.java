@@ -10,13 +10,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.http.ResponseEntity;
-import com.inter.desafioInter.Facades.UserFacade;
-import com.inter.desafioInter.Entities.User;
+import com.inter.desafioInter.Facades.IUserFacade;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import com.inter.desafioInter.dto.UserDTO;
-import java.util.stream.Collectors;
-import java.util.Optional;
 import java.util.List;
 
 @RestController
@@ -25,7 +22,7 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserFacade userFacade;
+    private IUserFacade userFacade;
 
     @GetMapping("/all")
     @ApiOperation(value = "Recupera todos os usuarios")
