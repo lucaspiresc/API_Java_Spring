@@ -1,31 +1,18 @@
 package com.inter.desafiointer;
 
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Optional;
 
-import com.inter.desafiointer.facades.UniqueDigitFacade;
-import com.inter.desafiointer.entities.UniqueDigit;
-import com.inter.desafiointer.dto.UniqueDigitDTO;
-import com.inter.desafiointer.entities.User;
-import com.inter.desafiointer.repositories.UserRepository;
-import com.inter.desafiointer.memorycache.UniqueDigitMemoryCache;
-import com.inter.desafiointer.repositories.UniqueDigitRepository;
-import com.inter.desafiointer.facades.SecurityFacade;
-import com.inter.desafiointer.dto.UserDTO;
-
-import static org.mockito.Mockito.when;
-
-import org.modelmapper.ModelMapper;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.Before;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.inter.desafiointer.dto.UserDTO;
+import com.inter.desafiointer.facades.SecurityFacade;
 
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest

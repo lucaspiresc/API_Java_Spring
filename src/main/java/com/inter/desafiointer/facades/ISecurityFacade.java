@@ -4,9 +4,9 @@ import com.inter.desafiointer.dto.UserDTO;
 
 public interface ISecurityFacade {
 
-    UserDTO encryptUserData(com.inter.desafiointer.dto.UserDTO userDto) throws Exception;
+    UserDTO encryptUserData(com.inter.desafiointer.dto.UserDTO userDto);
 
-    String encrypt(String plainText) throws Exception;
+    String encrypt(String plainText);
 
-    void generatePublicKey(String encodedPublicKey) throws Exception;
+    void generatePublicKey(String encodedPublicKey);
 }
