@@ -1,22 +1,16 @@
 package com.inter.desafiointer;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Optional;
-
-import com.inter.desafiointer.memorycache.UniqueDigitMemoryCache;
-import com.inter.desafiointer.entities.UniqueDigit;
-
-import static org.mockito.Mockito.when;
-
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.Before;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.junit.Assert;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.inter.desafiointer.entities.UniqueDigit;
+import com.inter.desafiointer.memorycache.UniqueDigitMemoryCache;
 
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest

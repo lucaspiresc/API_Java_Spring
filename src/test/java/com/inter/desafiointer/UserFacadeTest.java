@@ -7,6 +7,7 @@ import java.util.Optional;
 import com.inter.desafiointer.facades.UserFacade;
 import com.inter.desafiointer.dto.UserDTO;
 import com.inter.desafiointer.entities.User;
+import com.inter.desafiointer.exceptions.SecurityException;
 import com.inter.desafiointer.repositories.UserRepository;
 import com.inter.desafiointer.facades.SecurityFacade;
 import com.inter.desafiointer.repositories.UniqueDigitRepository;
@@ -127,7 +128,7 @@ public class UserFacadeTest {
 		userDto = userFacade.insertNewUser(userDto);
 		Assert.assertTrue(userDto != null);
 
-		when(securityFacade.encryptUserData(userDto)).thenThrow(new Exception());
+		when(securityFacade.encryptUserData(userDto)).thenThrow(new SecurityException());
 
 		userDto = userFacade.insertNewUser(userDto);
 		Assert.assertTrue(userDto == null);
@@ -191,7 +192,7 @@ public class UserFacadeTest {
 		userDto = userFacade.updateUser(userDto, 2L);
 		Assert.assertTrue(userDto == null);
 
-		when(securityFacade.encryptUserData(userDto)).thenThrow(new Exception());
+		when(securityFacade.encryptUserData(userDto)).thenThrow(new SecurityException());
 
 		userDto = userFacade.updateUser(userDto, 1L);
 		Assert.assertTrue(userDto == null);
