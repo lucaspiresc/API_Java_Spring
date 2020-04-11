@@ -14,6 +14,7 @@ Navegue pela linha de comando, posicione no diretório "root" do código-fonte e
 mvn spring-boot:run
 ```
 Por padrão, o acesso à API será pela porta 8080: http://localhost:8080/ e a interface swagger em http://localhost:8080/swagger-ui.html#/
+
 Lembre-se de utilizar o endpoint para fornecer a chave pública para a API, sem esta chave não é possível inserir registros de usuario, uma vez que estes são criptografados
 ##### Contato
 Email: lucascicutti1995@gmail.com
