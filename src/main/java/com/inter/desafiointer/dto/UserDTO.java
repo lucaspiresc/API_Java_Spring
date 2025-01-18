@@ -1,9 +1,14 @@
 package com.inter.desafiointer.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDTO {
 
     private Long userId;
@@ -11,7 +16,4 @@ public class UserDTO {
     private String email;
     private List<UniqueDigitDTO> uniqueDigits;
 
-    public UserDTO(){
-        //Empty constructor required for Model Mapper
-    }
 }

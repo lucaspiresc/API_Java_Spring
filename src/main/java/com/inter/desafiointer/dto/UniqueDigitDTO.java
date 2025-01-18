@@ -1,8 +1,12 @@
 package com.inter.desafiointer.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UniqueDigitDTO {
 
     private Long digitId;
@@ -10,8 +14,4 @@ public class UniqueDigitDTO {
     private Long multiplier;
     private Long digitValue;
     private Long userId;
-
-    public UniqueDigitDTO(){
-        //Empty constructor required for Model Mapper
-    }
 }
