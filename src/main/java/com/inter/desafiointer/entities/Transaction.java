@@ -12,7 +12,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="Transactions")
-public class Transactions {
+public class Transaction {
 
     @Id
     private Long transactionId;

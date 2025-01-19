@@ -23,5 +23,5 @@ public class Wallet implements Serializable {
     private Long userFunds;
 
     @OneToMany(mappedBy = "wallet", cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE}, orphanRemoval = true)
-    private List<Transactions> transactions;
+    private List<Transaction> transactions;
 }
